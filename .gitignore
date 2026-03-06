@@ -13,6 +13,9 @@ docs/build
 tmp
 .DS_Store
 
+# Universal2 build for MacOS "fat binaries"
+universal2/
+
 # virutal env 
 .venv
 venv

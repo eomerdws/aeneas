@@ -50,6 +50,7 @@ def main():
     This is the aeneas-cli "hydra" script,
     to be compiled by pyinstaller.
     """
+    
     if FROZEN:
         HydraCLI(invoke="aeneas-cli").run(
             arguments=sys.argv,

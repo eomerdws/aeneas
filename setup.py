@@ -215,6 +215,11 @@ if IS_WINDOWS:
     PKG_SCRIPTS = [s + ".py" for s in PKG_SCRIPTS]
 
 # prepare Extension objects
+if IS_OSX:
+    espeak_lib = "espeak-ng"
+else:
+    espeak_lib = "espeak"
+
 EXTENSION_CDTW = Extension(
     name="aeneas.cdtw.cdtw",
     sources=["aeneas/cdtw/cdtw_py.c", "aeneas/cdtw/cdtw_func.c", "aeneas/cint/cint.c"],
@@ -233,7 +238,7 @@ EXTENSION_CMFCC = Extension(
 EXTENSION_CEW = Extension(
     name="aeneas.cew.cew",
     sources=["aeneas/cew/cew_py.c", "aeneas/cew/cew_func.c"],
-    libraries=["espeak-ng"],
+    libraries=[espeak_lib],
 )
 EXTENSION_CFW = Extension(
     name="aeneas.cfw.cfw",
