@@ -27,9 +27,7 @@ jobs:
           pyinstaller pyinstaller-onedir.spec --clean
 
       - name: Tar build
-        run: |
-          cd dist
-          tar -cvf aeneas-cli.linux.tar aeneas-cli
+        run: tar -cvf aeneas-cli.linux.tar ./dist/aeneas-cli
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

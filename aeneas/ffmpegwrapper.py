@@ -43,6 +43,7 @@ class FFMPEGPathError(Exception):
 
     .. versionadded:: 1.4.1
     """
+
     pass
 
 
@@ -94,55 +95,52 @@ class FFMPEGWrapper(Loggable):
     just before path of the output file) """
 
     FFMPEG_PARAMETERS_SAMPLE_KEEP = (
-        FFMPEG_MONO +
-        FFMPEG_OVERWRITE +
-        FFMPEG_PLAIN_HEADER +
-        FFMPEG_FORMAT_WAVE
+        FFMPEG_MONO + FFMPEG_OVERWRITE + FFMPEG_PLAIN_HEADER + FFMPEG_FORMAT_WAVE
     )
     """ Set of parameters for ``ffmpeg`` without changing the sampling rate """
 
     FFMPEG_PARAMETERS_SAMPLE_8000 = (
-        FFMPEG_MONO +
-        FFMPEG_SAMPLE_8000 +
-        FFMPEG_OVERWRITE +
-        FFMPEG_PLAIN_HEADER +
-        FFMPEG_FORMAT_WAVE
+        FFMPEG_MONO
+        + FFMPEG_SAMPLE_8000
+        + FFMPEG_OVERWRITE
+        + FFMPEG_PLAIN_HEADER
+        + FFMPEG_FORMAT_WAVE
     )
     """ Set of parameters for ``ffmpeg`` with 8000 Hz sampling """
 
     FFMPEG_PARAMETERS_SAMPLE_16000 = (
-        FFMPEG_MONO +
-        FFMPEG_SAMPLE_16000 +
-        FFMPEG_OVERWRITE +
-        FFMPEG_PLAIN_HEADER +
-        FFMPEG_FORMAT_WAVE
+        FFMPEG_MONO
+        + FFMPEG_SAMPLE_16000
+        + FFMPEG_OVERWRITE
+        + FFMPEG_PLAIN_HEADER
+        + FFMPEG_FORMAT_WAVE
     )
     """ Set of parameters for ``ffmpeg`` with 16000 Hz sampling """
 
     FFMPEG_PARAMETERS_SAMPLE_22050 = (
-        FFMPEG_MONO +
-        FFMPEG_SAMPLE_22050 +
-        FFMPEG_OVERWRITE +
-        FFMPEG_PLAIN_HEADER +
-        FFMPEG_FORMAT_WAVE
+        FFMPEG_MONO
+        + FFMPEG_SAMPLE_22050
+        + FFMPEG_OVERWRITE
+        + FFMPEG_PLAIN_HEADER
+        + FFMPEG_FORMAT_WAVE
     )
     """ Set of parameters for ``ffmpeg`` with 22050 Hz sampling """
 
     FFMPEG_PARAMETERS_SAMPLE_44100 = (
-        FFMPEG_MONO +
-        FFMPEG_SAMPLE_44100 +
-        FFMPEG_OVERWRITE +
-        FFMPEG_PLAIN_HEADER +
-        FFMPEG_FORMAT_WAVE
+        FFMPEG_MONO
+        + FFMPEG_SAMPLE_44100
+        + FFMPEG_OVERWRITE
+        + FFMPEG_PLAIN_HEADER
+        + FFMPEG_FORMAT_WAVE
     )
     """ Set of parameters for ``ffmpeg`` with 44100 Hz sampling """
 
     FFMPEG_PARAMETERS_SAMPLE_48000 = (
-        FFMPEG_MONO +
-        FFMPEG_SAMPLE_48000 +
-        FFMPEG_OVERWRITE +
-        FFMPEG_PLAIN_HEADER +
-        FFMPEG_FORMAT_WAVE
+        FFMPEG_MONO
+        + FFMPEG_SAMPLE_48000
+        + FFMPEG_OVERWRITE
+        + FFMPEG_PLAIN_HEADER
+        + FFMPEG_FORMAT_WAVE
     )
     """ Set of parameters for ``ffmpeg`` with 48000 Hz sampling """
 
@@ -151,21 +149,17 @@ class FFMPEGWrapper(Loggable):
         16000: FFMPEG_PARAMETERS_SAMPLE_16000,
         22050: FFMPEG_PARAMETERS_SAMPLE_22050,
         44100: FFMPEG_PARAMETERS_SAMPLE_44100,
-        48000: FFMPEG_PARAMETERS_SAMPLE_48000
+        48000: FFMPEG_PARAMETERS_SAMPLE_48000,
     }
     """ Map sample rate to parameter list """
 
     FFMPEG_PARAMETERS_DEFAULT = FFMPEG_PARAMETERS_SAMPLE_16000
     """ Default set of parameters for ``ffmpeg`` """
 
-    TAG = u"FFMPEGWrapper"
+    TAG = "FFMPEGWrapper"
 
     def convert(
-            self,
-            input_file_path,
-            output_file_path,
-            head_length=None,
-            process_length=None
+        self, input_file_path, output_file_path, head_length=None, process_length=None
     ):
         """
         Convert the audio file at ``input_file_path``
@@ -195,11 +189,21 @@ class FFMPEGWrapper(Loggable):
         """
         # test if we can read the input file
         if not gf.file_can_be_read(input_file_path):
-            self.log_exc(u"Input file '%s' cannot be read" % (input_file_path), None, True, OSError)
+            self.log_exc(
+                "Input file '%s' cannot be read" % (input_file_path),
+                None,
+                True,
+                OSError,
+            )
 
         # test if we can write the output file
         if not gf.file_can_be_written(output_file_path):
-            self.log_exc(u"Output file '%s' cannot be written" % (output_file_path), None, True, OSError)
+            self.log_exc(
+                "Output file '%s' cannot be written" % (output_file_path),
+                None,
+                True,
+                OSError,
+            )
 
         # call ffmpeg
         arguments = [self.rconf[RuntimeConfiguration.FFMPEG_PATH]]
@@ -213,26 +217,40 @@ class FFMPEGWrapper(Loggable):
         else:
             arguments.extend(self.FFMPEG_PARAMETERS_DEFAULT)
         arguments.append(output_file_path)
-        self.log([u"Calling with arguments '%s'", arguments])
+        self.log(["Calling with arguments '%s'", arguments])
         try:
+            from aeneas.cleanenv import clean_env
+
             proc = subprocess.Popen(
                 arguments,
                 stdout=subprocess.PIPE,
                 stdin=subprocess.PIPE,
-                stderr=subprocess.PIPE
+                stderr=subprocess.PIPE,
+                env=clean_env,
             )
             proc.communicate()
             proc.stdout.close()
             proc.stdin.close()
             proc.stderr.close()
         except OSError as exc:
-            self.log_exc(u"Unable to call the '%s' ffmpeg executable" % (self.rconf[RuntimeConfiguration.FFMPEG_PATH]), exc, True, FFMPEGPathError)
-        self.log(u"Call completed")
+            self.log_exc(
+                "Unable to call the '%s' ffmpeg executable"
+                % (self.rconf[RuntimeConfiguration.FFMPEG_PATH]),
+                exc,
+                True,
+                FFMPEGPathError,
+            )
+        self.log("Call completed")
 
         # check if the output file exists
         if not gf.file_exists(output_file_path):
-            self.log_exc(u"Output file '%s' was not written" % (output_file_path), None, True, OSError)
+            self.log_exc(
+                "Output file '%s' was not written" % (output_file_path),
+                None,
+                True,
+                OSError,
+            )
 
         # returning the output file path
-        self.log([u"Returning output file path '%s'", output_file_path])
+        self.log(["Returning output file path '%s'", output_file_path])
         return output_file_path

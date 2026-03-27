@@ -1,0 +1,17 @@
+
+echo "Clean older builds"
+rm -Rf build/ dist/
+
+echo "Activate virtual environment"
+source .venv/bin/activate
+
+echo "Build Aeneas universal binaries"
+ARCHFLAGS="-arch x86_64 -arch arm64" python setup.py build_ext --inplace
+
+echo "Use PyInstaller to freeze project into a universal2 binary"
+python -m PyInstaller pyinstaller-onedir-universal2.spec --clean
+
+echo "Binary?"
+file dist/aeneas-cli/aeneas-cli
+
+time dist/aeneas-cli/aeneas-cli
