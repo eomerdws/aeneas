@@ -11,6 +11,7 @@ build
 dist
 docs/build
 tmp
+.venv/
 
 # service scripts
 zzz
