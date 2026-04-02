@@ -28,7 +28,17 @@ a = Analysis(
     pathex=[],
     binaries=None,
     datas=datas,
-    hiddenimports=[],
+    hiddenimports=[
+        'numpy',
+        'numpy.core_methods',
+        'numpy.random.mtrand',
+        'threading',
+        'subprocess',
+        'encodings.cp1252',
+        'encodings.utf_8',
+        'encodings.latin_1',
+        'encodings.ascii'
+    ],
     hookspath=[],
     runtime_hooks=[],
     excludes=[],
