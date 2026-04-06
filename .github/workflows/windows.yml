@@ -21,6 +21,11 @@ jobs:
       #   with:
       #     python-version: "3.14.3"
       #
+
+      - name: Set PowerShell execution policy
+        run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+        shell: powershell
+
       - name: Install dependencies
         run: |
           # echo "Update pip"
