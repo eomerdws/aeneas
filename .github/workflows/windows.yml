@@ -35,7 +35,7 @@ jobs:
 
           echo "Create PyInstaller one directory executable"
           pyinstaller pyinstaller-onedir.spec --clean
-        shell: pwsh
+        shell: powershell
 
       #- name: Tar build # It appears that windows has a tar command
       # run: |
