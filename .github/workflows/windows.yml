@@ -24,11 +24,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # echo "Update pip"
-          # python -m pip install --upgrade pip
-          # echo "Install Python requirements... "
-          # pip install -r requirements.txt
-
           Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
           echo "Build Aeneas C extensions... "
           python setup.py build_ext --inplace
