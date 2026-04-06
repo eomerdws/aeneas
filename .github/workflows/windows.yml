@@ -22,10 +22,6 @@ jobs:
       #     python-version: "3.14.3"
       #
 
-      - name: Set PowerShell execution policy
-        run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-        shell: powershell
-
       - name: Install dependencies
         run: |
           # echo "Update pip"
@@ -33,11 +29,13 @@ jobs:
           # echo "Install Python requirements... "
           # pip install -r requirements.txt
 
+          Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
           echo "Build Aeneas C extensions... "
           python setup.py build_ext --inplace
 
           echo "Create PyInstaller one directory executable"
           pyinstaller pyinstaller-onedir.spec --clean
+        shell: pwsh
 
       #- name: Tar build # It appears that windows has a tar command
       # run: |
