@@ -216,7 +216,7 @@ if IS_WINDOWS:
     PKG_SCRIPTS = [s + ".py" for s in PKG_SCRIPTS]
 
 # prepare Extension objects
-if IS_OSX or IS_WINDOWS:
+if IS_OSX:
     espeak_lib = "espeak-ng"
 else:
     espeak_lib = "espeak"
