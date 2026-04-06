@@ -10,20 +10,12 @@ jobs:
       - name: Checkout app-builders-pyinstaller
         uses: actions/checkout@v5
 
-      # - name: Add msbuild to PATH
-      #   uses: microsoft/setup-msbuild@v2
-      #   with:
-      #     vs-version: "latest"
-      #     msbuild-architecture: x64
-      #
-      # - name: Setup Python version
-      #   uses: actions/setup-python@v6
-      #   with:
-      #     python-version: "3.14.3"
-      #
-
       - name: Install dependencies
         run: |
+          echo "Install dependencies"
+          python -m venv .venv 
+          .venv\Scripts\activate 
+          pip install -r requirements.txt 
           echo "Build Aeneas C extensions... "
           python setup.py build_ext --inplace
 
