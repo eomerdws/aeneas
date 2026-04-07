@@ -32,3 +32,9 @@ jobs:
         with:
           name: aeneas-cli.win.zip
           path: dist/aeneas-cli/
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          artifacts: "aeneas-cli.win.zip"
