@@ -26,14 +26,17 @@ jobs:
           echo "Create PyInstaller one directory executable"
           pyinstaller pyinstaller-onedir.spec --clean
 
+      - name: Zip build output
+        run: cd dist && zip -r ../aeneas-cli.linux.zip aeneas-cli/
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: aeneas-cli.linux.zip
-          path: dist/aeneas-cli/
+          path: aeneas-cli.linux.zip
 
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
-          files: "aeneas-cli.linux.zip"
+          files: aeneas-cli.linux.zip

@@ -27,14 +27,17 @@ jobs:
       #   cd dist
       #   tar -cvf aeneas-cli.win.tar aeneas-cli
 
+      - name: Zip build output
+        run: Compress-Archive -Path dist\aeneas-cli -DestinationPath aeneas-cli.win.zip
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: aeneas-cli.win.zip
-          path: dist/aeneas-cli/
+          path: aeneas-cli.win.zip
 
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
-          files: "aeneas-cli.win.zip"
+          files: aeneas-cli.win.zip
