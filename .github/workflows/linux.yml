@@ -2,6 +2,9 @@ name: PyInstaller Linux one dir release
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   pyinstaller-build:
