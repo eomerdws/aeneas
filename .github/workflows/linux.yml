@@ -36,4 +36,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
-          artifacts: "aeneas-cli.linux.zip"
+          files: "aeneas-cli.linux.zip"
