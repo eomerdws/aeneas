@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   pyinstaller-build:
@@ -39,7 +39,7 @@ jobs:
           path: aeneas-cli.linux.zip
 
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.6.1
         if: github.ref_type == 'tag'
         with:
           files: aeneas-cli.linux.zip
