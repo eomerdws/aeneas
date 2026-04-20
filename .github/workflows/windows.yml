@@ -23,7 +23,7 @@ jobs:
           python setup.py build_ext --inplace
 
           echo "Create PyInstaller one directory executable"
-          pyinstaller pyinstaller-onedir.spec --clean
+          pyinstaller pyinstaller-onedir-win.spec --clean
 
       #- name: Tar build # It appears that windows has a tar command
       # run: |
