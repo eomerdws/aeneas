@@ -15,7 +15,7 @@ datas = [
     # required
     ("aeneas/res/*",            "aeneas/res"),
     ("aeneas/tools/res/*",      "aeneas/tools/res"),
-    ("c:/program files (x86)/eSpeak/espeak-data/*", "espeak-data")
+    ("c:/program files (x86)/eSpeak/espeak-data/*", "espeak-data"),
     # optional, copy files
     ("aeneas/extra/*.py",       "aeneas/extra"),
     # optional, create output directory
