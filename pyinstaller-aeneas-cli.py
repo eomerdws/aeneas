@@ -55,7 +55,7 @@ def main():
 
     if FROZEN:
         if platform.system() == "Windows":
-            os.environ["ESPEAK_DATA_PATH"] = "./espeak_data"
+            os.environ["ESPEAK_DATA_PATH"] = "./_internal/espeak_data"
         HydraCLI(invoke="aeneas-cli").run(arguments=sys.argv, show_help=False)
     else:
         HydraCLI(invoke="pyinstaller-aeneas-cli.py").run(
