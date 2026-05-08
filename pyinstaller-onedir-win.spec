@@ -15,7 +15,6 @@ datas = [
     # required
     ("aeneas/res/*",            "aeneas/res"),
     ("aeneas/tools/res/*",      "aeneas/tools/res"),
-    ("c:/program files (x86)/eSpeak/espeak-data/*", "espeak-data"),
     # optional, copy files
     ("aeneas/extra/*.py",       "aeneas/extra"),
     # optional, create output directory
@@ -28,6 +27,7 @@ a = Analysis(
     ['pyinstaller-aeneas-cli.py'],
     pathex=[],
     binaries=[
+        ("c:/program files (x86)/eSpeak/espeak-data/*", "espeak-data"),
         ("c:/program files (x86)/eSpeak/espeak_sapi.dll", '.'), 
         ("c:/program files (x86)/eSpeak/command_line/espeak.exe", '.')
     ],
