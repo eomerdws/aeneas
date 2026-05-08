@@ -28,8 +28,8 @@ a = Analysis(
     ['pyinstaller-aeneas-cli.py'],
     pathex=[],
     binaries=[
-        ("c:\program files (x86)\eSpeak\espeak_sapi.dll", '.'), 
-        ("c:\program files (x86)\eSpeak\command_line\espeak.exe", '.')
+        ("c:/program files (x86)/eSpeak/espeak_sapi.dll", '.'), 
+        ("c:/program files (x86)/eSpeak/command_line/espeak.exe", './command_line/espeak.exe')
     ],
     datas=datas,
     hiddenimports=[
