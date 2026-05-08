@@ -29,6 +29,8 @@ to be compiled by pyinstaller.
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
+import os
+import platform
 
 from aeneas.globalfunctions import FROZEN
 from aeneas.tools.hydra import HydraCLI
@@ -50,17 +52,16 @@ def main():
     This is the aeneas-cli "hydra" script,
     to be compiled by pyinstaller.
     """
-    
+
     if FROZEN:
-        HydraCLI(invoke="aeneas-cli").run(
-            arguments=sys.argv,
-            show_help=False
-        )
+        if platform.system() == "Windows":
+            os.environ["ESPEAK_DATA_PATH"] = "./espeak_data"
+        HydraCLI(invoke="aeneas-cli").run(arguments=sys.argv, show_help=False)
     else:
         HydraCLI(invoke="pyinstaller-aeneas-cli.py").run(
-            arguments=sys.argv,
-            show_help=False
+            arguments=sys.argv, show_help=False
         )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
