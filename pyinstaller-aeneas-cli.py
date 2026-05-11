@@ -32,6 +32,7 @@ import sys
 import os
 import platform
 
+from pathlib import Path
 from aeneas.globalfunctions import FROZEN
 from aeneas.tools.hydra import HydraCLI
 
@@ -54,8 +55,13 @@ def main():
     """
 
     if FROZEN:
-        if platform.system() == "Windows":
-            os.environ["ESPEAK_DATA_PATH"] = "."
+        if platform.system() in ["Windows", "Darwin"]:
+            # embedded path to espeak-data which will be packaged using pyinstaller
+            # Linux is not included here because the package manager is the preferred way
+            # to add the package
+            os.environ["ESPEAK_DATA_PATH"] = (
+                str(Path(__file__).resolve()) + "/_internal"
+            )
         HydraCLI(invoke="aeneas-cli").run(arguments=sys.argv, show_help=False)
     else:
         HydraCLI(invoke="pyinstaller-aeneas-cli.py").run(
