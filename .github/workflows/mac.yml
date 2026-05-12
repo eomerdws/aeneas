@@ -27,7 +27,7 @@ jobs:
           python setup.py build_ext --inplace 
 
           echo "Create Pyinstaller one directory executable"
-          pyinstaller pyinstaller-onedir.spec --clean
+          pyinstaller pyinstaller-onedir-mac.spec --clean
 
       - name: Zip build output
         run: cd dist && zip -r ../aeneas-cli.mac.zip aeneas-cli/
