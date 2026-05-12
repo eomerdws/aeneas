@@ -62,7 +62,7 @@ def main():
             os.environ["ESPEAK_DATA_PATH"] = str(Path(__file__).resolve()).replace(
                 "pyinstaller-aeneas-cli.py", ""
             )
-        print("ESPEAK_DATA_PATH:" + os.environ["ESPEAK_DATA_PATH"])
+            print("ESPEAK_DATA_PATH:" + os.environ["ESPEAK_DATA_PATH"])
         HydraCLI(invoke="aeneas-cli").run(arguments=sys.argv, show_help=False)
     else:
         HydraCLI(invoke="pyinstaller-aeneas-cli.py").run(
